@@ -1,0 +1,13 @@
+<div>
+    <material-spinner *ngIf="loading"></material-spinner>
+</div>
+<div *ngIf="!loading" style="width: 50%">
+    <h3>Ihre Einladungen</h3>
+    <div class="info-message" *ngIf="invitations.isEmpty">
+        Keine Einladungen verfügbar. Kontaktieren Sie bitte Ihren Standort-Manager um eine Einladung zu bekommen.
+    </div>
+    <div>
+        <blp-invitation-confirm *ngFor="let invite of invitations" [invitation]="invite">
+        </blp-invitation-confirm>
+    </div>
+</div>

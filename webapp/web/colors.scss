@@ -1,0 +1,32 @@
+@import 'package:angular_components/css/material/material';
+
+.color-amber {
+  color: $mat-amber-800;
+  background-color: $mat-amber-100;
+}
+
+.color-vanilla-blue {
+  color: $mat-vanilla-blue-800;
+  background-color: $mat-vanilla-blue-100;
+}
+
+.color-vanilla-green {
+  color: $mat-vanilla-green-800;
+  background-color: $mat-vanilla-green-100;
+}
+
+.color-light-green {
+  color: $mat-light-green-800;
+  background-color: $mat-light-green-100;
+}
+
+.color-vanilla-red {
+  color: $mat-vanilla-red-800;
+  background-color: $mat-vanilla-red-100;
+}
+
+.color-blue-grey {
+  color: $mat-blue-grey-800;
+  background-color: $mat-blue-grey-100;
+}
+

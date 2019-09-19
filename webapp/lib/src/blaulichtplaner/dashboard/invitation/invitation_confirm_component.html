@@ -1,0 +1,15 @@
+<div style="margin-bottom:16px;border-bottom: 1px solid #e0e0e0">
+    <div>
+        Firma: {{invitation.companyLabel}}, eingeladen von: {{invitation.invitedBy}}
+    </div>
+
+    <div *ngIf="loading" style="justify-content: right;margin: 16px 0px">
+        <material-spinner *ngIf="loading"></material-spinner>
+    </div>
+    
+    <div *ngIf="!loading" class="blp-flex" style="justify-content: right;margin: 16px 0px">
+        <material-button (trigger)="confirmInvitation()" raised>
+            Annehmen
+        </material-button>
+    </div>
+</div>

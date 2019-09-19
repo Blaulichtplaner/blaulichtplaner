@@ -1,0 +1,13 @@
+<div class="blp-content" style="max-width: 400px;margin-left: auto; margin-right: auto">
+    Ihre Registrierung war erfolgreich.
+    <div [hidden]="verificationEmailSend">Bitte loggen Sie sich jetzt ein.</div>
+    <div [hidden]="!verificationEmailSend">Bitte prüfen Sie Ihr E-Mail Postfach und verifizieren Sie Ihre E-Mail Adresse.</div>
+    
+    <p>
+        <material-button raised class="highlighted" [routerLink]="routes.welcome.path">
+            Einloggen
+        </material-button>
+    </p>
+</div>
+
+

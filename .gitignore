@@ -1,0 +1,5 @@
+.DS_Store
+build
+build_config.dart
+.dart_tool
+

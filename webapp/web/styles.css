@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+@import url(https://fonts.googleapis.com/css?family=Material+Icons);
+
+body {
+    margin: 0;
+}
+
+* {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.blp-text-content {
+    padding: 16px;
+}
+
+.blp-shiftplan-content {
+    margin-top: 16px;
+}
+
+.blp-shiftplan {
+    margin-top: 16px;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: transparent;
+}
+
+.blp-shiftplan thead {
+    line-height: 40px;
+    text-transform: uppercase;
+}
+
+.blp-shiftplan th {
+    font-size: 13px;
+    text-align: center;
+}
+
+.blp-shiftplan tr {
+    min-height: 28px;
+}
+
+.blp-shiftplan tr:first-child {
+    width: 5%;
+}
+
+.blp-shiftplan tr:first-child th:first-child {
+    width: 9%;
+}
+
+.blp-shiftplan tbody > tr > td, .blp-shiftplan tbody > tr > th, .blp-shiftplan thead > tr > td, .blp-shiftplan thead > tr > th {
+    border: 1px solid #e0e0e0;
+    height: 28px;
+    min-width: 35px;
+}
+
+.outside {
+    background-color: #f0f0f4;
+}
+
+.blp-shift-cell {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.blp-week-no {
+    text-align: center;
+    font-size: 13px;
+    width: 9%;
+}
+
+.blp-week-day {
+    width: 13%;
+    vertical-align: top;
+}
+
+.blp-content {
+    padding: 16px;
+}
+
+.blp-shift label {
+    color: #757575;
+    font-size: 13px;
+    display: block;
+    text-align: right;
+    padding: 6px;
+}
+
+.blp-shift {
+    min-height: 30px;
+    font-size: 11px;
+    background-color: transparent;
+    flex-grow: 1;
+    user-select: none;
+}
+
+.blp-shift:hover {
+    background-color: #e0e0e0;
+}
+
+.blp-shift-info {
+    border-radius: 3px;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 1px;
+    padding: 6px;
+    margin-top: 1px;
+}
+
+.blp-shifttime {
+    font-weight: bold;
+}
+
+.blp-shift-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.blp-workarea {
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 2px;
+}
+
+.blp-person-count {
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 2px;
+}
+
+.count-ok {
+    border-color: rgb(110, 131, 77);
+    color: rgb(110, 131, 77);
+}
+
+.count-too-low {
+    border-color: rgb(255, 0, 0);
+    color: rgb(255, 0, 0);
+}
+
+.overtime {
+    color: rgb(255, 0, 0);
+}
+
+.editor-line {
+    margin-bottom: 16px;
+    margin-top: 16px;
+}
+
+.blp-shift-selected {
+    background-color: bisque !important;
+}
+
+.blp-shiftplan-area {
+    display: flex;
+}
+
+.blp-filter-area {
+    width: 300px;
+}
+
+.blp-shift-bid {
+    display: flex;
+}
+
+.blp-shift-bid span {
+    margin-left: 4px;
+    align-self: center;
+}
+
+.blp-shift-status {
+    display: flex;
+}
+
+.blp-remarks {
+    font-style: italic;
+}
+
+.blp-flex {
+    display: flex;
+}
+
+.blp-flex-space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.blp-shift-edit-tab {
+    min-width: 450px;
+}
+
+.small-text {
+    font-size: 0.7em;
+}
+
+.currentWeek td {
+    background-color: aliceblue;
+}
+
+.currentWeek td.blp-week-no, td.today .blp-shift label {
+    color: #c53929;
+    font-weight: bolder;
+}
+
+.blp-shift-incomplete {
+    background: url(./images/128-30.png) repeat;
+}
+
+.loading-form {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #FFFFFFF0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}

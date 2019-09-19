@@ -1,0 +1,3 @@
+::ng-deep .delete-button:not([disabled]) {
+    background-color: #c53929;
+}

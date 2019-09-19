@@ -1,0 +1,61 @@
+<form #evaluationForm="ngForm">
+
+    <div class="blp-flex">
+
+        <div>
+            <h3>Mitarbeiter Angaben</h3>
+            <div class="editor-line">
+                <material-date-time-picker
+                        [(dateTime)]="evaluation.actualFrom"
+                        [(ngModel)]="evaluation.actualFrom"
+                        ngControl="evaluation.actualFrom">
+                </material-date-time-picker>
+            </div>
+            <div class="editor-line">
+                <material-date-time-picker
+                        [(dateTime)]="evaluation.actualTo"
+                        [(ngModel)]="evaluation.actualTo"
+                        ngControl="evaluation.actualTo">
+                </material-date-time-picker>
+            </div>
+            <div>Tatsächliche Arbeitszeit: {{ actualDuration | duration}}</div>
+            <div *ngIf="reasonOvertime != null">Grund für Überstunden: {{reasonOvertime}}</div>
+            <div class="editor-line">
+                <material-input multiline label="Mitarbeiter Notiz" type="text"
+                                floatingLabel style="width:100%"
+                                [(ngModel)]="evaluation.remarks"
+                                maxRows="3"
+                                ngControl="evaluation.remarks">
+                </material-input>
+
+            </div>
+            <blp-assignment-editor [tasks]="evaluation.tasks"></blp-assignment-editor>
+        </div>
+        <div style="margin-left: 16px">
+            <h3>Planung</h3>
+            <div class="editor-line">
+                <material-date-time-picker [dateTime]="shift.from" [disabled]="true">
+                </material-date-time-picker>
+            </div>
+            <div class="editor-line">
+                <material-date-time-picker [dateTime]="shift.to" [disabled]="true">
+                </material-date-time-picker>
+            </div>
+            <div>Geplante Arbeitszeit: {{ plannedDuration | duration}}</div>
+            <div class="editor-line">
+                <material-input multiline label="Manager Notiz" type="text"
+                                floatingLabel style="width:100%"
+                                [(ngModel)]="evaluation.managerRemarks"
+                                maxRows="3"
+                                ngControl="evaluation.managerRemarks">
+                </material-input>
+            </div>
+            <div class="editor-line">
+                <material-checkbox label="Nicht erschienen"
+                                   [(ngModel)]="evaluation.didNotAppear"></material-checkbox>
+            </div>
+
+        </div>
+
+    </div>
+</form>

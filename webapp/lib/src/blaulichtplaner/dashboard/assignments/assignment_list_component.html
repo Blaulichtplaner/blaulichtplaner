@@ -1,0 +1,28 @@
+<div>
+    <material-spinner *ngIf="loading"></material-spinner>
+</div>
+
+<div *ngIf="!loading">
+    <h3>{{shiftsTitle}}</h3>
+    <div class="info-message" *ngIf="assignments.isEmpty">
+        Keine Dienste verfügbar im Moment.
+    </div>
+    <material-list size="large">
+        <material-list-item *ngFor="let assignment of assignments">
+            <div style="width: 100%;border-bottom: 1px solid #e0e0e0">
+                <div class="blp-flex-space-between">
+                    <div>{{ assignment.workAreaLabel}}</div>
+                    <div>{{ assignment.locationLabel}}</div>
+                </div>
+                <div>
+                    {{ assignment.from | date:'EEE' }}
+                    {{ assignment.from | date:'mediumDate' }}, <b>{{ assignment.from | date:'shortTime' }}</b> -
+                    {{ assignment.to | date:'EEE' }}
+                    {{ assignment.to | date:'mediumDate' }}, <b>{{ assignment.to | date:'shortTime' }}</b>
+                </div>
+                <div>Dauer: {{ assignment.durationLabel}}</div>
+                <div class="blp-remarks">{{ assignment.publicNote }}</div>
+            </div>
+        </material-list-item>
+    </material-list>
+</div>

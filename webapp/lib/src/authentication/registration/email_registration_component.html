@@ -1,0 +1,55 @@
+<div class="blp-content" style="max-width: 400px;margin-left: auto; margin-right: auto">
+    <h3>Blaulichtplaner Registrierung</h3>
+
+    <div style="margin-bottom: 16px">Bitte füllen Sie alle Felder aus.</div>
+
+    <form #registerForm="ngForm">
+        <material-input label="Vorname" [required]="true"
+                        autoFocus floatingLabel style="width:100%"
+                        [(ngModel)]="registration.firstName" ngControl="firstName">
+        </material-input>
+        <material-input label="Nachname" [required]="true"
+                        floatingLabel style="width:100%"
+                        [(ngModel)]="registration.lastName" ngControl="lastName">
+        </material-input>
+
+        <material-input label="E-Mail" [required]="true" type="email"
+                        floatingLabel style="width:100%"
+                        [(ngModel)]="registration.email" ngControl="email">
+        </material-input>
+
+        <material-input label="Passwort" [required]="true" type="password" [showCharacterCount]="true"
+                        floatingLabel style="width:100%" hintText="Bitte min. 8 Zeichen verwenden"
+                        [(ngModel)]="registration.password" ngControl="password">
+        </material-input>
+
+        <material-input label="Passwort Wiederholung" [required]="true" type="password" [showCharacterCount]="true"
+                        floatingLabel style="width:100%"
+                        [(ngModel)]="registration.password2" ngControl="password2">
+        </material-input>
+
+        <div>
+            <material-checkbox label="AGBs akzeptieren"
+                               [(ngModel)]="registration.terms"></material-checkbox>
+            <material-checkbox label="Datenschutzbestimmungen akzeptieren"
+                               [(ngModel)]="registration.privacy"></material-checkbox>
+        </div>
+
+        <div style="margin-bottom: 16px; margin-top: 16px" [hidden]="hideErrorMessage" class="error-message">
+            <b>{{errorMessage}}</b>
+        </div>
+
+        <div>
+            <material-spinner *ngIf="loading"></material-spinner>
+        </div>
+
+        <div>
+            <material-button *ngIf="!loading"
+                             (trigger)="register()" raised class="highlighted"
+                             [disabled]="!registerForm.valid">
+                Registrieren
+            </material-button>
+        </div>
+
+    </form>
+</div>

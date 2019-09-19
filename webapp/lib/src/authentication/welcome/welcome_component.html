@@ -1,0 +1,50 @@
+<div class="blp-text-content" style="width: 720px;margin-left: auto;margin-right: auto">
+    <h1>Willkommen beim Blaulichtplaner</h1>
+    <p>Bitte loggen Sie sich ein oder erstellen Sie einen Benutzer.</p>
+
+
+    <div class="error-message" style="margin: 16px 0" *ngIf="globalErrorMessage != null">{{globalErrorMessage}}</div>
+    
+    <div class="blp-flex-space-between">
+
+        <div style="border: 1px solid #f0f0f4; border-radius: 5px; padding: 16px">
+            <h2>Einloggen</h2>
+            <form #registerForm="ngForm" style="margin-bottom: 16px">
+                <material-input label="E-Mail" [required]="true" type="email"
+                                floatingLabel style="width:250px"
+                                [(ngModel)]="loginModel.email" ngControl="loginModel.password">
+                </material-input>
+
+                <material-input label="Passwort" [required]="true" type="password"
+                                floatingLabel style="width: 250px"
+                                [(ngModel)]="loginModel.password" ngControl="loginModel.password">
+                </material-input>
+
+                <div>
+                    <material-spinner *ngIf="loading"></material-spinner>
+                </div>
+                
+                <div style="margin: 0 16px" class="error-message">{{ errorMessage }}</div>
+
+                <div>
+                    <material-button *ngIf="!loading"
+                                     (trigger)="login()" raised class="highlighted">
+                        Anmelden
+                    </material-button>
+                </div>
+            </form>
+
+            <material-button (trigger)="auth.signInWithGoogle()">Mit Google-Konto anmelden</material-button>
+        </div>
+        <div style="width: 16px"></div>
+        <div style="border: 1px solid #f0f0f4; border-radius: 5px; padding: 16px">
+            <h2>Registrieren</h2>
+            <material-button (trigger)="auth.registerWithGoogle()">Mit Google-Konto registrieren</material-button>
+
+            <material-button (trigger)="registerWithEmail()">Mit E-Mail und Passwort registrieren</material-button>
+        </div>
+
+    </div>
+
+
+</div>

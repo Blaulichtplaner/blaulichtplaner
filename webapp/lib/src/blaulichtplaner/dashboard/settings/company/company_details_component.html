@@ -1,0 +1,31 @@
+<h4>Firmendetails</h4>
+
+<div><b>{{company.companyName}}</b></div>
+
+<div>
+<material-button (trigger)="editCompany()" >
+    <material-icon icon="edit"></material-icon>
+</material-button>
+</div>
+
+<h4>Standorte</h4>
+
+<div>
+    <div><material-spinner *ngIf="companyLocations.loading"></material-spinner></div>
+
+    <material-list size="medium" *ngIf="companyLocations.isNotEmpty()">
+        <material-list-item *ngFor="let location of companyLocations.data" (trigger)="selectLocation(location)">
+            {{ location.data.locationName }}
+        </material-list-item>
+    </material-list>
+    <p *ngIf="companyLocations.isEmpty()">
+        Keine Standorte angelegt. Bitte zuerst einen Standort anlegen.
+    </p>
+
+    <material-button (trigger)="addNewLocation()" raised class="highlighted">
+        Neuen Standort anlegen
+    </material-button>
+    <material-button (trigger)="manageEmployees()" raised>
+        Mitarbeiter verwalten
+    </material-button>
+</div>

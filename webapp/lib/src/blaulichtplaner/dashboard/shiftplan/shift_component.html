@@ -1,0 +1,41 @@
+<div class="blp-shift" clickable (click)="dayClicked()">
+    <label>{{day.dayNo}}</label>
+    <div class="blp-shift-info color-{{ shift.workAreaColor }}" *ngFor="let shift of day.shifts"
+         [ngClass]="{'blp-shift-selected': selectedShifts.isSelected(shift), 'blp-shift-incomplete' : shift.incomplete}"
+         (click)="shiftClicked(shift, $event)">
+        <div class="blp-shifttime">
+            <span class="start-time" [class.overtime]="shift.overtimeFrom != null">{{ shift.displayFrom | date:"HH:mm"}}</span> - 
+            <span class="end-time" [class.overtime]="shift.overtimeTo != null">{{ shift.displayTo | date:"HH:mm"}}</span>
+        </div>
+        <div class="blp-shift-details">
+            <div class="blp-workarea">{{ shift.workAreaLabel}}</div>
+            <div class="blp-person-count"
+                 [ngClass]="{'count-too-low' : (shift.incomplete), 'count-ok' : (!shift.incomplete)}">
+                {{ shift.getAssignedEmployees().length }}/{{ shift.requiredEmployees }}
+            </div>
+        </div>
+        <div class="blp-shift-status" *ngIf="showStatus">
+            <div *ngIf="shift.acceptBid" tooltipTarget #acceptBidTarget="tooltipTarget">
+                <material-icon size="medium" icon="how_to_vote"></material-icon>
+                <material-tooltip-text [for]="acceptBidTarget">Bewerbungen können abgegeben werden
+                </material-tooltip-text>
+            </div>
+            <div class="blp-shift-bid" *ngIf="shift.hasBids()" tooltipTarget #target="tooltipTarget">
+                <material-icon size="small" icon="pan_tool"></material-icon>
+                <span>({{ shift.bidCount() }})</span>
+                <material-tooltip-text [for]="target">
+                    <div>Bewerbungen:</div>
+                    <div *ngFor="let bid of shift.bids">{{ bid.employeeLabel }}</div>
+                </material-tooltip-text>
+            </div>
+        </div>
+        <div class="blp-shift-person blp-flex-space-between"
+             *ngFor="let employee of shift.getAssignedEmployees()">
+            {{ employee.uiDisplayName }}
+            <material-icon *ngIf="employee.status != 'none'" size="small" icon="{{ employee.status }}"></material-icon>
+        </div>
+        <div class="blp-shift-person" *ngIf="!shift.hasAssignments()">
+            Unbesetzt
+        </div>
+    </div>
+</div>

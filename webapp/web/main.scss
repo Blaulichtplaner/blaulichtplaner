@@ -1,0 +1,15 @@
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/app_layout/layout';
+
+.blue {
+  color: $mat-amber-200;
+}
+
+.error-message {
+  font-size: 12px;
+  color: $mat-red-700;
+}
+.info-message {
+  font-size: 12px;
+  color: $mat-indigo-600;
+}

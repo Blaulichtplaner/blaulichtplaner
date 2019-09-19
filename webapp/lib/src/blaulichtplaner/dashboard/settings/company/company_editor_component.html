@@ -1,0 +1,24 @@
+<div class="blp-content" style="max-width: 400px;margin-left: auto; margin-right: auto" >
+    <form #companyForm="ngForm" >
+        <material-input label="Firmenname" [required]="true"
+                        autoFocus floatingLabel style="width:100%"
+                        [(ngModel)]="company.companyName" ngControl="company.companyName">
+        </material-input>
+
+        <hr/>
+
+        <div>
+            <material-button #submitButton (trigger)="saveCompany()" raised class="highlighted"
+                             [disabled]="!companyForm.valid">
+                Speichern
+            </material-button>
+            <material-button (trigger)="cancel()" raised>
+                Abbrechen
+            </material-button>
+            <material-button (trigger)="delete()" raised class="delete-button" *ngIf="company.id != null">
+                Löschen
+            </material-button>
+        </div>
+        <div *ngIf="loading"><material-spinner></material-spinner> Daten werden gespeichert...</div>
+    </form>
+</div>

@@ -1,0 +1,19 @@
+<div>
+    <h4>
+        Einsätze (Anzahl: {{ tasks.length }})
+    </h4>
+    <div class="blp-flex" style="justify-content: space-between" *ngFor="let task of tasks">
+        {{task.reference}}
+        <material-button icon dense (trigger)="deleteTask(task)">
+            <material-icon size="small" icon="delete" ></material-icon>
+        </material-button>
+    </div>
+    <div class="blp-flex" style="justify-content: space-between">
+        <material-input label="Einsatznummer"
+                        [(ngModel)]="assignmentNumber" ngControl="assignmentNumber">
+        </material-input>
+        <material-button icon dense (trigger)="addTask()">
+            <material-icon size="small" icon="add"></material-icon>
+        </material-button>
+    </div>
+</div>

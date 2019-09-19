@@ -1,0 +1,106 @@
+<div class="blp-content" style="max-width: 400px;margin-left: auto; margin-right: auto; position: relative">
+    <div *ngIf="loading" class="loading-form">
+        <material-spinner></material-spinner>
+    </div>
+    <form #dataForm="ngForm">
+        <material-auto-suggest-input
+                label="Titel"
+                [selection]="employee.title"
+                [selectionOptions]="titleOptions"
+                [showClearIcon]="true"
+                limit="10">
+        </material-auto-suggest-input>
+        <material-input
+                label="Vorname" [required]="true" autocomplete="given-name"
+                floatingLabel style="width:100%"
+                [(ngModel)]="employee.firstName" ngControl="employee.firstName">
+        </material-input>
+        <material-input
+                label="Nachname" [required]="true" autocomplete="family-name"
+                floatingLabel style="width:100%"
+                [(ngModel)]="employee.lastName" ngControl="employee.lastName">
+        </material-input>
+        
+        <h4>Fachgebiet und Qualifikation</h4>
+
+        <div>
+        <material-dropdown-select
+                [buttonText]="employee.areaOfExpertise == null ? 'Bitte Fachgebiet auswählen' : employee.areaOfExpertise"
+                [(ngModel)]="employee.areaOfExpertise"
+                [options]="areaOfExpertiseOptions">
+        </material-dropdown-select>
+        </div>
+        <div style="margin-top: 16px">
+        <material-dropdown-select
+                multi
+                [width]="3"
+                [buttonText]="qualificationsLabel"
+                [options]="qualificationOptions"
+                [(ngModel)]="employee.qualifications">
+        </material-dropdown-select>
+        </div>
+        <div style="margin-top: 16px">
+            <material-checkbox label="Spezielle Intensivmedizin"
+                               [(ngModel)]="employee.additionalTitle"></material-checkbox>
+        </div>
+        
+        <h4>Herkunft</h4>
+
+        <material-dropdown-select
+                [buttonText]="employee.origin == null ? 'Bitte Herkunft auswählen' : employee.origin"
+                [(ngModel)]="employee.origin"
+                [options]="originOptions">
+        </material-dropdown-select>
+
+
+        <h4>Adressdaten</h4>
+
+        <material-input
+                label="Straße und Nr." autocomplete="street-address"
+                floatingLabel style="width:100%"
+                [(ngModel)]="employee.street" ngControl="employee.street">
+        </material-input>
+        <material-input
+                label="PLZ" autocomplete="postal-code"
+                floatingLabel style="width:100%"
+                [(ngModel)]="employee.postalCode" ngControl="employee.postalCode">
+        </material-input>
+        <material-input
+                label="Ort" autocomplete="locality"
+                floatingLabel style="width:100%"
+                [(ngModel)]="employee.city" ngControl="employee.city">
+        </material-input>
+
+        <h4>Bankverbindung</h4>
+
+        <material-input
+                label="Bankname"
+                floatingLabel style="width:100%"
+                [(ngModel)]="employee.bankName" ngControl="employee.bankName">
+        </material-input>
+        <material-input
+                label="IBAN"
+                floatingLabel style="width:100%"
+                [(ngModel)]="employee.iban" ngControl="employee.iban">
+        </material-input>
+        <material-input
+                label="BIC"
+                floatingLabel style="width:100%"
+                [(ngModel)]="employee.bic" ngControl="employee.bic">
+        </material-input>
+
+
+        <div style="margin-top: 32px">
+            <material-button #submitButton (trigger)="save()" raised class="highlighted"
+                             [disabled]="!dataForm.valid">
+                Speichern
+            </material-button>
+            <material-button (trigger)="cancel()" raised>
+                Abbrechen
+            </material-button>
+            <material-button (trigger)="delete()" raised class="delete-button" *ngIf="employeePath != null">
+                Löschen
+            </material-button>
+        </div>
+    </form>
+</div>

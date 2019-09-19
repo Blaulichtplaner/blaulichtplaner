@@ -1,0 +1,54 @@
+<div>
+    <material-spinner *ngIf="loading"></material-spinner>
+</div>
+
+<div *ngIf="!loading">
+    <h3>Dienstübersicht</h3>
+
+    <blp-filter-options [filterConfig]="filterConfig" (filterConfigChange)="filterShiftVotes"></blp-filter-options>
+
+    <div style="margin: 16px 0" class="info-message" *ngIf="groupedShifts.isEmpty">
+        Keine Dienste verfügbar im Moment. Es werden nur zukünftige Dienste angezeigt.
+        Dienste in der Vergangenheit können nicht mehr abgesagt oder zugesagt werden.
+    </div>
+
+    <div style="margin-top: 16px;border-bottom: 1px solid #e0e0e0; font-weight: bold"
+         class="blp-flex-space-between" *ngIf="groupedShifts.isNotEmpty">
+        <div style="flex:1"></div>
+        <div style="flex: 2">Von / Bis</div>
+        <div style="flex: 1">Dauer</div>
+        <div style="flex: 2">Standort</div>
+        <div style="flex: 2">Arbeitsbereich</div>
+        <div style="flex: 2">Bewerben / Ablehen</div>
+    </div>
+
+    <div style="margin-top: 16px;border-bottom: 1px solid #e0e0e0" *ngFor="let groupedShift of groupedShifts">
+        <div style="margin-bottom: 16px"><b>{{groupedShift.day | date:'EEEE'}}, {{groupedShift.day |
+            date:'mediumDate'}}</b></div>
+
+        <div *ngFor="let shift of groupedShift.shiftVotes" class="shift-group-{{shift.group}}" 
+             [attr.data-group]="shift.group" (mouseover)="selectGroup(shift)" (mouseout)="deselectGroup()">
+            <div style="align-items:center" class="blp-flex-space-between"
+                 [class.highlight-shift]="shift.highlighted">
+                <div style="flex:1">
+                    <material-checkbox [checked]="shift.selected"></material-checkbox>
+                </div>
+                <div style="flex: 2">{{ shift.from | date:'mediumDate' }},
+                    <b>{{ shift.from | date:'shortTime' }}</b> - <b>{{ shift.to | date:'shortTime' }}</b>
+                </div>
+                <div style="flex: 1">{{shift.durationLabel}}</div>
+                <div style="flex: 2">{{shift.locationLabel}}</div>
+                <div style="flex: 2">{{shift.workAreaLabel}}</div>
+                <div style="flex: 2">
+                    <material-button icon dense (trigger)="bidShift(shift)" title="Bewerbung abgeben">
+                        <material-icon icon="pan_tool"></material-icon>
+                    </material-button>
+                    <material-button icon dense (trigger)="rejectShift(shift)" title="Ablehnen">
+                        <material-icon icon="highlight_off"></material-icon>
+                    </material-button>
+                </div>
+            </div>
+            <div class="blp-remarks">{{ shift.publicNote }}</div>
+        </div>
+    </div>
+</div>

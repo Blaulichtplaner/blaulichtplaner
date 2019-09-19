@@ -1,0 +1,93 @@
+<div class="blp-flex" style="align-items: center;justify-content: space-between">
+    <h3>Dienstplanauswertung</h3>
+    <blp-location-switcher></blp-location-switcher>
+</div>
+
+<div class="error-message" *ngIf="contextService.selectedCompanyLocation == null">
+    Bitte zuerst einen Standort auswählen!
+</div>
+
+<div *ngIf="contextService.selectedCompanyLocation != null">
+    <div style="flex:1 0 0;text-align: center">
+        <material-dropdown-select
+                [buttonText]="selectionShiftplanLabel"
+                [selection]="selectedShiftplan"
+                [options]="shiftplanOptions"
+                [itemRenderer]="renderShiftplanOption"
+                [deselectOnActivate]="false">
+        </material-dropdown-select>
+    </div>
+</div>
+
+
+<div class="blp-shiftplan-content" *ngIf="shiftplanData != null">
+    <div style="margin-top: 16px">
+
+        <material-button (trigger)="clearSelection()" raised>
+            Auswahl löschen
+        </material-button>
+    </div>
+
+
+    <div *ngIf="shiftplanData != null">
+        <acx-scoreboard>
+            <acx-scorecard
+                    label="Tage"
+                    value="{{shiftplanData.stats.days }}">
+            </acx-scorecard>
+            <acx-scorecard
+                    label="Dienste"
+                    value="{{shiftplanData.stats.shifts }}">
+            </acx-scorecard>
+            <acx-scorecard
+                    label="Mitarbeiter"
+                    value="{{shiftplanData.stats.employees }}">
+            </acx-scorecard>
+            <acx-scorecard
+                    label="Geplant"
+                    value="{{shiftplanData.stats.plannedMinutes | duration }}">
+            </acx-scorecard>
+            <acx-scorecard
+                    label="Geleistet"
+                    value="{{shiftplanData.stats.workedMinutes | duration }}">
+            </acx-scorecard>
+            <acx-scorecard
+                    label="Überstunden"
+                    value="{{shiftplanData.stats.overtimeMinutes | duration }}">
+            </acx-scorecard>
+            <acx-scorecard
+                    label="Einsätze"
+                    value="{{shiftplanData.stats.assignmentTasks }}">
+            </acx-scorecard>
+        </acx-scoreboard>
+    </div>
+
+
+    <table class="blp-shiftplan" *ngIf="shiftplanData != null">
+        <thead>
+        <tr>
+            <th *ngFor="let head of shiftplanData.headers">{{head}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let week of shiftplanData.shiftWeeks">
+            <td class="blp-week-no"><label>{{week.weekNo}}</label></td>
+            <td class="blp-week-day" *ngFor="let day of week.shiftDays"
+                [ngClass]="{outside : !day.partOfShiftplan}">
+                <blp-shift class="blp-shift-cell"
+                           [showStatus]="false"
+                           [day]="day"
+                           [selection]="shiftplanData.selectedShifts"
+                           (editShifts)="editShift($event)"></blp-shift>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <modal [visible]="showEvaluationEditor">
+        <blp-evaluation-editor [shift]="shift"
+                               [shiftplanData]="shiftplanData"
+                               (onCancel)="cancelEvaluationEditor()">
+        </blp-evaluation-editor>
+    </modal>
+</div>

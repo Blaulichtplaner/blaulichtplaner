@@ -1,0 +1,29 @@
+<form #userForm="ngForm" style="margin: 16px">
+    <label>Zeitraum für den Dienstplan</label>
+    <div>
+        <material-date-range-picker compact [(range)]="shiftplan.range">
+        </material-date-range-picker>
+    </div>
+
+
+    <material-input label="Dienstplan Name" [required]="true"
+                    floatingLabel style="width:100%"
+                    [(ngModel)]="shiftplan.label" ngControl="shiftplan.label">
+    </material-input>
+    <material-dropdown-select
+            [buttonText]="shiftplanStatusLabel"
+            [selection]="shiftplan.status"
+            [options]="statusOptions"
+            [itemRenderer]="itemRenderer">
+    </material-dropdown-select>
+
+    <div style="margin-top: 16px">
+        <material-button #submitButton (trigger)="saveShiftplan()" raised class="highlighted"
+                         [disabled]="!userForm.valid">
+            Speichern
+        </material-button>
+        <material-button (trigger)="cancel()" raised>
+            Abbrechen
+        </material-button>
+    </div>
+</form>

@@ -1,0 +1,11 @@
+<div *ngIf="showIntro">
+    <h3>Willkommen beim Blaulichtplaner</h3>
+
+    <p>Sie wurden bisher noch keinem Standort zugeordnet bzw. haben Sie noch keine Standorte angelegt.</p>
+    <p>Bitte lassen Sie sich von meinem Standort-Manager einladen oder erstellen Sie
+        eine Firma und einen Standort um selbst Personal zu verwalten.</p>
+</div>
+
+<div *ngIf="!showIntro">
+    <blp-assignment-list></blp-assignment-list>
+</div>

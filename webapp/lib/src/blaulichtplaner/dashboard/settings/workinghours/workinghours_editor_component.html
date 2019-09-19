@@ -1,0 +1,35 @@
+<h2>Arbeitszeiten bearbeiten</h2>
+
+<form #workingHoursForm="ngForm">
+    Von:
+    <material-time-picker [(time)]="workingHours.from"
+                          [required]="true">
+    </material-time-picker>
+    
+    bis:
+    <material-time-picker [(time)]="workingHours.to"
+                          [required]="true">
+    </material-time-picker>
+
+    <hr/>
+
+    <div>
+        <material-button #submitButton (trigger)="save()" raised class="highlighted"
+                         [disabled]="!workingHoursForm.valid">
+            Speichern
+        </material-button>
+        <material-button (trigger)="cancel()" raised>
+            Zurück
+        </material-button>
+    </div>
+    <div *ngIf="loading">
+        <material-spinner></material-spinner>
+        Daten werden gespeichert...
+    </div>
+</form>
+
+<material-list *ngIf="workingHoursList.isNotEmpty()" >
+    <material-list-item *ngFor="let workingHour of workingHoursList.data">{{workingHour.data.from | date:'HH:mm'}} - {{workingHour.data.to  | date:'HH:mm'}} <material-button (trigger)="deleteWorkingHours(workingHour)">
+        <material-icon icon="delete"></material-icon>
+    </material-button></material-list-item>
+</material-list>

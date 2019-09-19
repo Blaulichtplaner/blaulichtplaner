@@ -1,0 +1,75 @@
+<material-drawer persistent #drawer="drawer">
+    <material-list>
+        <!-- Position the start of the drawer content correctly -->
+        <div group class="mat-drawer-spacer">
+            <div style="display: flex;padding:0 20px" *ngIf="user != null">
+                <div style="width:40px;height: 40px">
+                    <img *ngIf="user.photoURL != null"
+                         [src]="user.photoURL" width="40" height="40">
+                </div>
+                <div style="margin-left: 8px" *ngIf="labelsVisible">
+                    {{user.displayName}}<br>
+                    <span class="small-text">({{user.email}})</span>
+                </div>
+            </div>
+        </div>
+        <!-- Here is a group without a label -->
+        <div group>
+            <material-list-item routerLink="dashboard/overview">
+                <material-icon icon="inbox"></material-icon>
+                <span *ngIf="labelsVisible">Übersicht</span>
+            </material-list-item>
+            <material-list-item routerLink="dashboard/shifts">
+                <material-icon icon="event_note"></material-icon>
+                <span *ngIf="labelsVisible">Dienstübersicht</span>
+            </material-list-item>
+            <material-list-item routerLink="dashboard/shiftplan/overview">
+                <material-icon icon="dashboard"></material-icon>
+                <span *ngIf="labelsVisible">Dienstplan</span>
+            </material-list-item>
+            <material-list-item routerLink="dashboard/evaluation">
+                <material-icon icon="playlist_add_check"></material-icon>
+                <span *ngIf="labelsVisible">Auswertung</span>
+            </material-list-item>
+        </div>
+        <div group>
+            <material-list-item routerLink="dashboard/invitation">
+                <material-icon icon="group_work"></material-icon>
+                <span *ngIf="labelsVisible">Einladungen</span>
+            </material-list-item>
+            <material-list-item routerLink="dashboard/settings/overview">
+                <material-icon icon="settings"></material-icon>
+                <span *ngIf="labelsVisible">Konfiguration</span>
+            </material-list-item>
+        </div>
+        <div group>
+            <material-list-item *ngIf="user != null" (trigger)="auth.signOut()">
+                <material-icon icon="input"></material-icon>
+                <span *ngIf="labelsVisible">Abmelden</span>
+            </material-list-item>
+        </div>
+
+
+    </material-list>
+</material-drawer>
+<material-content>
+    <header class="material-header shadow">
+        <div class="material-header-row">
+            <material-button icon
+                             class="material-drawer-button" (trigger)="drawer.toggle()">
+                <material-icon icon="menu"></material-icon>
+            </material-button>
+            <span class="material-header-title">Blaulichtplaner</span>
+
+            <div class="material-spacer"></div>
+            <nav class="material-navigation">
+                <material-button>Impressum</material-button>
+            </nav>
+        </div>
+    </header>
+    <div class="blp-content">
+        <router-outlet [routes]="routes.all"></router-outlet>
+    </div>
+
+</material-content>
+

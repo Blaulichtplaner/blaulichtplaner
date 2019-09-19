@@ -1,0 +1,41 @@
+<h4>Mitarbeiterliste</h4>
+
+<material-button (trigger)="addEmployee()" raised class="highlighted">
+    Neuen Mitarbeiter anlegen
+</material-button>
+
+<div>
+    <div>
+        <material-spinner *ngIf="employees.loading"></material-spinner>
+    </div>
+
+    <material-list>
+        <material-list-item *ngFor="let employee of employees.data" class="blp-flex-space-between">
+            <div style="flex: 3" (click)="selectEmployee(employee.id)">{{employee.data | employeeName}}</div>
+
+            <div style="flex: 1">
+            <material-icon icon="verified_user" title="Hat einen Benutzer"
+                           *ngIf="employee.data.hasUser"></material-icon>
+            <material-icon icon="watch_later" title="Einladung noch nicht bestätigt"
+                           *ngIf="employee.data.invitationPending"></material-icon>
+            <material-button icon title="Einladung senden" dense (trigger)="inviteEmployee(employee.selfRef)"
+                           *ngIf="!employee.data.hasUser">
+                <material-icon icon="person_add" ></material-icon>
+            </material-button>
+            </div>
+        </material-list-item>
+    </material-list>
+    <p *ngIf="employees.isEmpty()">
+        Keine Mitarbeiter angelegt.
+    </p>
+</div>
+
+<modal [visible]="invitationEditorVisible">
+    <blp-invitation-dialog [employeeRef]="employeeRef"
+                      (onCancel)="cancelInvitation()"
+                      (onInvite)="sendInvitation($event)"
+                      *deferredContent>
+    </blp-invitation-dialog>
+</modal>
+
+

@@ -1,0 +1,11 @@
+<div class="blp-flex">
+    <div style="margin-right: 16px">Filter: </div>
+    <material-dropdown-select
+            [deselectOnActivate]="false"
+            [options]="filterOptions"
+            [selection]="selectedFilterOption"
+            (selectionChange)="selectionChanged"
+            [buttonText]="filterOptionLabel"
+            [itemRenderer]="filterOptionRenderer">
+    </material-dropdown-select>
+</div>

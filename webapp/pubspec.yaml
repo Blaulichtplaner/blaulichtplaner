@@ -1,0 +1,30 @@
+name: blaulichtplaner
+description: Web-Anwendung für den Blaulichtplaner
+version: 0.0.1
+
+environment:
+  sdk: '>=2.0.0 <3.0.0'
+
+dependencies:
+  angular: ^5.1.0
+  angular_router: ^2.0.0-alpha
+  angular_forms: ^2.1.0
+  angular_components: ^0.10.0
+  firebase: ^5.0.0-beta
+  http: ^0.11.3+16
+  collection: ^1.14.10
+  nanoid: ^0.0.4
+  googleapis_auth: ^0.2.5+2
+  service_worker: ^0.2.3
+
+
+dev_dependencies:
+  sass_builder: ^2.0.0
+  angular_test: ^2.0.0-alpha
+  build_runner: ^1.0.0
+  build_test: ^0.10.1
+  build_web_compilers: ^0.4.3
+  test: any
+  mockito: ^3.0.0-beta
+  junitreport: ^0.3.3
+    

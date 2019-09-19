@@ -1,0 +1,24 @@
+<div class="blp-content" style="max-width: 400px;margin-left: auto; margin-right: auto" >
+    <form #locationForm="ngForm" >
+        <material-input label="Standort" [required]="true"
+                        autoFocus floatingLabel style="width:100%"
+                        [(ngModel)]="location.locationName" ngControl="location.locationName">
+        </material-input>
+
+        <hr/>
+
+        <div>
+            <material-button #submitButton (trigger)="save()" raised class="highlighted"
+                             [disabled]="!locationForm.valid">
+                Speichern
+            </material-button>
+            <material-button (trigger)="cancel()" raised>
+                Abbrechen
+            </material-button>
+            <material-button (trigger)="delete()" raised class="delete-button" *ngIf="locationPath != null">
+                Löschen
+            </material-button>
+        </div>
+        <div *ngIf="loading"><material-spinner></material-spinner> Daten werden gespeichert...</div>
+    </form>
+</div>

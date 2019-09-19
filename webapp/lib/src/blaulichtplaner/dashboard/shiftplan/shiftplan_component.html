@@ -1,0 +1,111 @@
+<div class="blp-flex" style="align-items: center;justify-content: space-between">
+    <h3>Dienstplan</h3>
+    <blp-location-switcher></blp-location-switcher>
+</div>
+
+<div class="error-message" *ngIf="contextService.selectedCompanyLocation == null">
+    Bitte zuerst einen Standort auswählen!
+</div>
+
+<div *ngIf="contextService.selectedCompanyLocation != null">
+    <div class="error-message" *ngIf="!hasWorkAreas">
+        Keine Arbeitsbereiche eingerichtet. Dienstplanung nicht möglich.
+    </div>
+    <div class="blp-flex" style="align-items: center;justify-content: space-between" *ngIf="hasWorkAreas">
+        <div style="flex:1 0 0">
+            <material-button (trigger)="createShiftplan()" raised #source="popupSource" popupSource>
+                Neuer Dienstplan
+            </material-button>
+        </div>
+
+        <div style="flex:1 0 0;text-align: center">
+            <material-dropdown-select
+                    [buttonText]="selectionShiftplanLabel"
+                    [selection]="selectedShiftplan"
+                    [options]="shiftplanOptions"
+                    [itemRenderer]="renderShiftplanOption"
+                    [deselectOnActivate]="false">
+            </material-dropdown-select>
+        </div>
+
+        <div style="flex:1 0 0;text-align: right">
+            <material-button (trigger)="publishShiftplan()" *ngIf="shiftplanPlanning" raised>
+                Dienstplan veröffentlichen
+            </material-button>
+        </div>
+
+        <material-popup #shiftplanPopup
+                        [source]="source"
+                        [enforceSpaceConstraints]="true">
+            <blp-shiftplan-editor [shiftplan]="shiftplanModel"
+                                  (onSave)="saveShiftplan($event)"
+                                  (onCancel)="cancel()"></blp-shiftplan-editor>
+        </material-popup>
+    </div>
+
+
+    <div class="blp-shiftplan-content" *ngIf="shiftplanData != null && hasWorkAreas">
+        <div style="margin-top: 16px" class="blp-flex-space-between">
+            <div>
+                <material-auto-suggest-input label="Mitarbeiter"
+                                             [selection]="selectedEmployee"
+                                             [selectionOptions]="possibleEmployees"
+                                             [showClearIcon]="true"
+                                             [itemRenderer]="employeeRenderer"
+                                             limit="10">
+                </material-auto-suggest-input>
+                <material-button (trigger)="assignEmployee()" raised>
+                    Dienst zuordnen
+                </material-button>
+            </div>
+            <div>
+                <material-button (trigger)="clearSelection()" raised>
+                    Auswahl löschen
+                </material-button>
+                <material-button (trigger)="deleteSelected()" raised>
+                    Ausgewählte löschen
+                </material-button>
+            </div>
+        </div>
+
+        <table class="blp-shiftplan" *ngIf="shiftplanData != null">
+            <thead>
+            <tr>
+                <th *ngFor="let head of shiftplanData.headers">{{head}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let week of shiftplanData.shiftWeeks"
+                [ngClass]="{currentWeek : week.currentWeek}">
+                <td class="blp-week-no">
+                    <label>{{week.weekNo}}</label>
+                </td>
+                <td class="blp-week-day" *ngFor="let day of week.shiftDays"
+                    [ngClass]="{outside : !day.partOfShiftplan, today: day.today}">
+                    <blp-shift class="blp-shift-cell"
+                               [day]="day"
+                               [selection]="shiftplanData.selectedShifts"
+                               (addShifts)="addShift($event)"
+                               (editShifts)="editShift($event)"></blp-shift>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        
+    </div>
+
+    <modal [visible]="showShiftEditor">
+        <blp-shift-editor [shift]="shift"
+                          [shiftplanData]="shiftplanData"
+                          [workAreasList]="workAreasList"
+                          (onCancel)="cancelShiftEditor()"
+                          (onSave)="saveShiftEditor($event)"
+                          (onDelete)="deleteShiftEditor($event)"
+                          *deferredContent>
+        </blp-shift-editor>
+    </modal>
+</div>
+
+
+
+<router-outlet [routes]="routes.all"></router-outlet>

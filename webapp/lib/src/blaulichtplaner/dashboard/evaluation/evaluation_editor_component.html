@@ -1,0 +1,53 @@
+<material-dialog>
+    <h3 header>Auswertungen</h3>
+    <form style="margin: 16px; min-width: 600px">
+        <material-expansionpanel
+                *ngFor="let evaluation of evaluations"
+                flat
+                class="custom-toolbelt-panel"
+                [showSaveCancel]="false"
+                name="{{ evaluation.uiDisplayName }}"
+                (open)="updateEvaluation(evaluation)"
+                [expanded]="evaluation.expanded"
+                (expandedChange)="evaluation.expanded = $event">
+
+            <material-spinner *ngIf="evaluation.loading"></material-spinner>
+            <blp-evaluation-form
+                    *ngIf="!evaluation.loading" [evaluation]="evaluation.evaluation" [shift]="shift">
+            </blp-evaluation-form>
+            <div *ngIf="!evaluation.loading && !evaluation.finished"><b>Der Mitarbeiter hat den Dienst noch nicht ausgewertet</b>
+                <material-button (trigger)="usePlannedWorktimes(evaluation)">
+                    Arbeitszeiten übernehmen
+                </material-button>
+
+            </div>
+            <div toolbelt class="blp-flex" style="justify-content: space-between">
+                <material-button (trigger)="evaluation.expanded = false">
+                    Schließen
+                </material-button>
+                <material-yes-no-buttons
+                        *ngIf="evaluation.finished"
+                        class="custom-toolbelt-buttons"
+                        yesText="Annehmen"
+                        noText="Ablehnen"
+                        (yes)="confirm(evaluation)"
+                        (no)="reject(evaluation)">
+                </material-yes-no-buttons>
+                <material-yes-no-buttons
+                        *ngIf="!evaluation.finished"
+                        class="custom-toolbelt-buttons"
+                        yesText="Direkt auswerten"
+                        noText="Auswertung anfordern"
+                        (yes)="confirm(evaluation)"
+                        (no)="requestEvaluation(evaluation)">
+                </material-yes-no-buttons>
+            </div>
+        </material-expansionpanel>
+
+    </form>
+    <div footer style="margin-top: 16px;display: flex; justify-content: end">
+        <material-button (trigger)="finishEditing()">
+            Beenden
+        </material-button>
+    </div>
+</material-dialog>

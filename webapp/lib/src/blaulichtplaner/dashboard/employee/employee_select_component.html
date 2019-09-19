@@ -1,0 +1,10 @@
+<material-input #searchInput
+                leadingGlyph="search"
+                style="width:100%"
+                [(ngModel)]="searchQuery">
+</material-input>
+
+<material-select [selection]="assignedEmployees"
+                 [options]="possibleEmployees"
+                 [factoryRenderer]="selectableEmployeeRenderer">
+</material-select>

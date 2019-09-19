@@ -1,0 +1,16 @@
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/material_expansionpanel/mixins';
+@import 'package:angular_components/material_yes_no_buttons/mixins';
+
+.custom-toolbelt-buttons {
+  @include material-yes-button-text-color($mat-blue);
+}
+
+.custom-toolbelt-panel [toolbelt] {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  color: $mat-light-transparent-black;
+  padding-right: $mat-grid * 3;
+  padding-left: $mat-grid * 3;
+}

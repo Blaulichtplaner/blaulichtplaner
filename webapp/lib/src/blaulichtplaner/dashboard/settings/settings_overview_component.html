@@ -1,0 +1,18 @@
+<div>
+    <div><material-spinner *ngIf="userCompanies.loading"></material-spinner></div>
+
+    <material-list size="medium" *ngIf="userCompanies.isNotEmpty()">
+        <material-list-item *ngFor="let transportResult of userCompanies.data" (trigger)="selectCompany(transportResult)">
+            {{ transportResult.data.label }}
+        </material-list-item>
+    </material-list>
+    <p *ngIf="userCompanies.isEmpty()">
+        Keine Firma angelegt. Bitte zuerst eine Firma anlegen.
+    </p>
+
+    <material-button (trigger)="addNewCompany()" raised class="highlighted">
+        Neue Firma anlegen
+    </material-button>
+    
+</div>
+

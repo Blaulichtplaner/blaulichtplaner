@@ -1,0 +1,35 @@
+<h4>Standort</h4>
+
+<div><b>{{company.companyName}} - {{location.locationName}}</b></div>
+
+<div>
+    <material-button (trigger)="edit()" >
+        Standort bearbeiten
+    </material-button>
+
+    <material-button (trigger)="addNewWorkArea()" raised class="highlighted">
+        Neuen Arbeitsbereich anlegen
+    </material-button>
+    
+    <material-button (trigger)="showWorkingHours()" raised class="highlighted">
+        Arbeitszeiten verwalten
+    </material-button>
+
+</div>
+
+<h4>Arbeitsbereiche</h4>
+
+<div>
+    <div><material-spinner *ngIf="workAreas.loading"></material-spinner></div>
+
+    <material-list size="medium" *ngIf="workAreas.isNotEmpty()">
+        <material-list-item *ngFor="let workArea of workAreas.data" (trigger)="selectWorkArea(workArea.id)">
+            <div class="color-{{ workArea.data.color }}" style="height: 16px;width: 16px;margin-right: 8px"></div>
+            {{ workArea.data.workAreaName }}
+        </material-list-item>
+    </material-list>
+    <p *ngIf="workAreas.isEmpty()">
+        Keine Arbeitsbereiche angelegt. Bitte zuerst einen Arbeitsbereich anlegen.
+    </p>
+
+</div>

@@ -1,0 +1,32 @@
+<material-dialog>
+
+    <h3 header>Mitarbeiter einladen</h3>
+
+    <div style="min-width: 480px">
+        <form>
+            <material-input label="E-Mail Adresse des Mitarbeiters" [required]="true" type="email"
+                            floatingLabel style="width:100%" autoFocus
+                            [(ngModel)]="invitationModel.email"
+                            ngControl="invitationModel.email">
+            </material-input>
+            <material-input multiline label="Einladungstext" type="text"
+                            floatingLabel style="width:100%"
+                            [(ngModel)]="invitationModel.invitationText"
+                            maxRows="3"
+                            ngControl="invitationModel.invitationText">
+            </material-input>
+        </form>
+    </div>
+
+    <div footer style="margin-top: 16px;margin-bottom:16px;display: flex; justify-content: flex-end">
+        <div>
+            <material-button (trigger)="cancel()">
+                Abbrechen
+            </material-button>
+            <material-button (trigger)="invite()" raised class="highlighted">
+                Senden
+            </material-button>
+        </div>
+    </div>
+
+</material-dialog>

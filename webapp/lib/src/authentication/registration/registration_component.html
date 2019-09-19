@@ -1,0 +1,43 @@
+<div class="blp-content" style="max-width: 400px;margin-left: auto; margin-right: auto" *ngIf="registrationPossible">
+    <form #registerForm="ngForm" >
+        <material-input label="Vorname" [required]="true"
+                        autoFocus floatingLabel style="width:100%"
+                        [(ngModel)]="registration.firstName" ngControl="firstName">
+        </material-input>
+        <material-input label="Nachname" [required]="true"
+                        floatingLabel style="width:100%"
+                        [(ngModel)]="registration.lastName" ngControl="lastName">
+        </material-input>
+
+        <material-input label="E-Mail" [required]="true"
+                        floatingLabel style="width:100%"
+                        [(ngModel)]="registration.email" ngControl="email">
+        </material-input>
+
+        <div>
+            <material-checkbox label="AGBs akzeptieren"
+                               [(ngModel)]="registration.terms"></material-checkbox>
+            <material-checkbox label="Datenschutzbestimmungen akzeptieren"
+                               [(ngModel)]="registration.privacy"></material-checkbox>
+        </div>
+
+        <div [hidden]="termsValid" class="error-message">
+            Bitte akzeptieren Sie die AGBs und die Datenschutzbestimmungen
+        </div>
+        
+        <hr/>
+
+        <div>
+            <material-button (trigger)="register()" raised class="highlighted"
+                             [disabled]="!registerForm.valid">
+                Registrieren
+            </material-button>
+        </div>
+
+    </form>
+</div>
+<div class="blp-content" style="max-width: 400px;margin-left: auto; margin-right: auto" *ngIf="!registrationPossible">
+    <div class="error-message">
+        Dieser Benutzer ist bereits registriert. Bitte loggen Sie sich ein.
+    </div>
+</div>

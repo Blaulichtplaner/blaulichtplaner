@@ -1,0 +1,149 @@
+<material-dialog>
+
+    <h3 header>Dienst bearbeiten</h3>
+
+    <div style="min-height:60vh">
+        <form #shiftForm="ngForm" *ngIf="shiftModel != null" shift-validator>
+            <material-tab-panel style="margin-bottom: 8px" class="tab-panel" [activeTabIndex]="0">
+                <material-tab label="Details">
+                    <div class="blp-shift-edit-tab">
+                        <div class="editor-line">
+                            <material-dropdown-select
+                                    [deselectOnActivate]="false"
+                                    [buttonText]="selectionWorkAreaLabel"
+                                    [selection]="shiftModel.selectedWorkArea"
+                                    [options]="workAreaOptions"
+                                    [itemRenderer]="renderWorkAreaOption">
+                            </material-dropdown-select>
+                        </div>
+                        <div class="blp-flex">
+                            <div>
+
+                                <div class="editor-line">
+                                    <material-date-time-picker [required]="true"
+                                                               [dateTime]="shiftModel.from"
+                                                               (dateTimeChange)="startTimeChanged($event)"
+                                                               [(ngModel)]="shiftModel.from"
+                                                               [minDateTime]="minDateTime"
+                                                               [maxDateTime]="maxDateTime"
+                                                               ngControl="shiftModel.from">
+                                    </material-date-time-picker>
+                                </div>
+                                <div class="editor-line">
+                                    <material-date-time-picker [required]="true"
+                                                               [(dateTime)]="shiftModel.to"
+                                                               [(ngModel)]="shiftModel.to"
+                                                               [minDateTime]="minDateTime"
+                                                               [maxDateTime]="maxDateTime"
+                                                               ngControl="shiftModel.to">
+                                    </material-date-time-picker>
+                                </div>
+                            </div>
+                            <material-chips class="clickable" style="flex-direction: column;margin-left: 16px">
+                                <material-chip *ngFor="let workingHour of workingHoursList"
+                                               [removable]="false"
+                                               buttonDecorator
+                                               (trigger)="selectWorkingHours(workingHour)">
+                                    {{workingHour.from | date:'HH:mm'}} - {{workingHour.to | date:'HH:mm'}}
+                                </material-chip>
+                            </material-chips>
+                        </div>
+
+                        <div class="editor-line blp-flex-space-between">
+                            <material-checkbox label="Bewerbungen zulasen"
+                                               [(ngModel)]="shiftModel.acceptBid"></material-checkbox>
+                            <material-input label="Anzahl Mitarbeiter" [required]="true" type="number"
+                                            floatingLabel
+                                            [(ngModel)]="shiftModel.requiredEmployees"
+                                            ngControl="shiftModel.requiredEmployees">
+                            </material-input>
+
+                        </div>
+                        <div class="editor-line">
+                            <material-input multiline label="Öffentliche Notiz" type="text"
+                                            floatingLabel style="width:100%"
+                                            [(ngModel)]="shiftModel.publicNote"
+                                            maxRows="3"
+                                            ngControl="shiftModel.publicNote">
+                            </material-input>
+                        </div>
+                    </div>
+                </material-tab>
+
+                <material-tab label="Wiederholen" *ngIf="shiftModel.isNew && shiftplanData != null">
+                    <div class="blp-shift-edit-tab">
+                        <table class="blp-sp-repeat">
+                            <thead>
+                            <tr>
+                                <th *ngFor="let head of shiftplanData.headers">{{head}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let week of shiftplanData.shiftWeeks">
+                                <td><label>{{week.weekNo}}</label></td>
+                                <td *ngFor="let day of week.shiftDays">
+                                    <material-checkbox title="{{day.dayNo}}"
+                                                       [checked]="shiftModel.repeatDates.contains(day.day)"
+                                                       (checkedChange)="repeatShift(day.day, $event)"
+                                                       [disabled]="!canRepeatDay(day)"
+                                                       *ngIf="day.partOfShiftplan"></material-checkbox>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <material-button (trigger)="selectAllRepeatDays()">
+                            Alle
+                        </material-button>
+                    </div>
+                </material-tab>
+
+                <material-tab label="Bewerbungen">
+                    <div class="blp-shift-edit-tab">
+                        <div class="blp-flex" style="justify-content: space-between; align-items: center"
+                             *ngFor="let bid of shiftModel.bids">
+                            <div>{{ bid.employeeLabel }}</div>
+                            <div *ngIf="isBidAcceptable(bid)">
+                                <material-button (trigger)="acceptBid(bid)" icon class="highlighted">
+                                    <material-icon icon="person_add"></material-icon>
+                                </material-button>
+                            </div>
+                            <div *ngIf="!isBidAcceptable(bid)">
+                                (bereits eingeplant)
+                            </div>
+                        </div>
+                    </div>
+                </material-tab>
+                <material-tab label="Mitarbeiter">
+                    <div class="blp-shift-edit-tab">
+                        <blp-employee-select
+                                [shift]="shiftModel"
+                                [companyRef]="companyRef"
+                                [assignedEmployees]="shiftModel.assignedEmployees">
+                        </blp-employee-select>
+                    </div>
+                </material-tab>
+            </material-tab-panel>
+        </form>
+
+    </div>
+
+    <div footer style="margin-top: 16px;display: flex; justify-content: space-between">
+        <div>
+            <material-button (trigger)="delete()" raised
+                             [disabled]="shiftModel.isNew">
+                Löschen
+            </material-button>
+        </div>
+
+        <div>
+            <material-button (trigger)="cancel()">
+                Abbrechen
+            </material-button>
+            <material-button #submitButton (trigger)="save()" raised class="highlighted">
+                Speichern
+            </material-button>
+        </div>
+
+    </div>
+
+</material-dialog>
